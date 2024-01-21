@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Validators\" />
+    <Folder Include="Dtos\" />
+    <Folder Include="Modules\Blogs\Handlers\" />
+    <Folder Include="Modules\Blogs\Querys\" />
+    <Folder Include="Modules\Blogs\Commands\" />
+    <Folder Include="Modules\Courses\Commands\" />
+    <Folder Include="Modules\Courses\Handlers\" />
+    <Folder Include="Modules\Courses\Querys\" />
+    <Folder Include="Modules\Payments\Commands\" />
+    <Folder Include="Modules\Payments\Handlers\" />
+    <Folder Include="Modules\Payments\Querys\" />
+    <Folder Include="Modules\Users\Admins\Commands\" />
+    <Folder Include="Modules\Users\Admins\Handlers\" />
+    <Folder Include="Modules\Users\Admins\Querys\" />
+    <Folder Include="Modules\Users\Guests\Commands\" />
+    <Folder Include="Modules\Users\Guests\Handlers\" />
+    <Folder Include="Modules\Users\Guests\Querys\" />
+    <Folder Include="Mappers\" />
+    <Folder Include="Contracts\" />
+    <Folder Include="UnitOfWork\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CodeSnippet.Infrastructure\CodeSnippet.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
