@@ -1,28 +1,33 @@
 using CodeSnippet.Infrastructure;
+using CodeSnippet.Application;
+using CodeSnippet.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
 var configuration = builder.Configuration;
 
 builder.Services.AddControllers();
 
 builder.Services.AddInfrastructure(configuration);
 
+builder.Services.AddApplication(configuration);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+app.UseGlobalExceptionHandler();
+
+app.UseApiVersioning();
+
+app.UseSwagger();
+
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Code Snippet APIs");
+});
 
 app.UseHttpsRedirection();
 

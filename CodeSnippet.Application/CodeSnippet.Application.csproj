@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Validators\" />
-    <Folder Include="Dtos\" />
     <Folder Include="Modules\Blogs\Handlers\" />
     <Folder Include="Modules\Blogs\Querys\" />
     <Folder Include="Modules\Blogs\Commands\" />
@@ -18,15 +17,16 @@
     <Folder Include="Modules\Payments\Commands\" />
     <Folder Include="Modules\Payments\Handlers\" />
     <Folder Include="Modules\Payments\Querys\" />
-    <Folder Include="Modules\Users\Admins\Commands\" />
-    <Folder Include="Modules\Users\Admins\Handlers\" />
-    <Folder Include="Modules\Users\Admins\Querys\" />
-    <Folder Include="Modules\Users\Guests\Commands\" />
-    <Folder Include="Modules\Users\Guests\Handlers\" />
-    <Folder Include="Modules\Users\Guests\Querys\" />
+    <Folder Include="Modules\Users\Commands\" />
+    <Folder Include="Modules\Users\Handlers\" />
+    <Folder Include="Modules\Users\Querys\" />
     <Folder Include="Mappers\" />
     <Folder Include="Contracts\" />
-    <Folder Include="UnitOfWork\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="11.1.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
   </ItemGroup>
 
   <ItemGroup>
