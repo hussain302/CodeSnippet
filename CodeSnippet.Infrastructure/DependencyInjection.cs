@@ -9,18 +9,17 @@ namespace CodeSnippet.Infrastructure;
 public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
-         => services.AddDistributedMemoryCache()
-                    .AddDbContext<SqlServerDbContext>(options =>
-                    {
-                        options.UseSqlServer(
-                            connectionString: configuration.GetConnectionString("SqlServerConnection"));
-                    })
-                    .AddApiVersioning(x =>
-                     {
-                         x.DefaultApiVersion                   = new ApiVersion(1, 0);
-                         x.AssumeDefaultVersionWhenUnspecified = true;
-                         x.ReportApiVersions                   = true;
-                        // x.ApiVersionReader = new HeaderApiVersionReader("X-Api-Version");
-                     }); 
+        => services
+            .AddDistributedMemoryCache()
+            .AddDbContext<SqlServerDbContext>(options =>
+            {
+                options.UseSqlServer(configuration.GetConnectionString("SqlServerConnection"));
+            })
+            .AddApiVersioning(x =>
+            {
+                x.DefaultApiVersion = new ApiVersion(1, 0);
+                x.AssumeDefaultVersionWhenUnspecified = true;
+                x.ReportApiVersions = true;
+            });
 
 }

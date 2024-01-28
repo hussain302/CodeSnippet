@@ -17,10 +17,6 @@
     <Folder Include="Modules\Payments\Commands\" />
     <Folder Include="Modules\Payments\Handlers\" />
     <Folder Include="Modules\Payments\Querys\" />
-    <Folder Include="Modules\Users\Commands\" />
-    <Folder Include="Modules\Users\Handlers\" />
-    <Folder Include="Modules\Users\Querys\" />
-    <Folder Include="Mappers\" />
     <Folder Include="Contracts\" />
   </ItemGroup>
 

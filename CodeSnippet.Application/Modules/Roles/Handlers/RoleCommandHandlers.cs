@@ -13,20 +13,20 @@ public class RoleCommandHandlers(IRoleRepository roleRepository) :
 
     public async Task<Guid> Handle(CreateRoleCommand request, CancellationToken cancellationToken)
     {
-        var role = new Role
+        Role role = new ()
         {
             Id = Guid.NewGuid(),
             Name = request.Name,
             Description = request.Description
         };
 
-        var existingRole = await _roleRepository.Get(x => x.Name == request.Name);
+        var existingRole = await _roleRepository.Get(role => role.Name == request.Name, cancellationToken:cancellationToken);
 
         if (existingRole.Any()) throw new Exception("Role name already exists.");
 
-        await _roleRepository.Add(role);
+        await _roleRepository.Add(role, cancellationToken);
 
-        int saveResponse = await _roleRepository.Save();
+        int saveResponse = await _roleRepository.Save(cancellationToken);
 
         if (saveResponse is 0) return Guid.Empty;
 
@@ -35,7 +35,7 @@ public class RoleCommandHandlers(IRoleRepository roleRepository) :
 
     public async Task<bool> Handle(UpdateRoleCommand request, CancellationToken cancellationToken)
     {
-        var role = await _roleRepository.Find(id: request.Id);
+        Role? role = await _roleRepository.Find(id: request.Id, cancellationToken);
 
         if (role == null) return false;
         
@@ -43,9 +43,9 @@ public class RoleCommandHandlers(IRoleRepository roleRepository) :
 
         role.Description = request.Description;
 
-        await _roleRepository.Update(role);
+        await _roleRepository.Update(role, cancellationToken);
 
-        int saveResponse = await _roleRepository.Save();
+        int saveResponse = await _roleRepository.Save(cancellationToken);
 
         if(saveResponse is 0) return false;
 
@@ -54,11 +54,11 @@ public class RoleCommandHandlers(IRoleRepository roleRepository) :
 
     public async Task<bool> Handle(DeleteRoleCommand request, CancellationToken cancellationToken)
     {
-        var role = await _roleRepository.Find(id: request.Id);
+        Role? role = await _roleRepository.Find(id: request.Id, cancellationToken);
 
-        if (role != null) await _roleRepository.Delete(role);
+        if (role != null) await _roleRepository.Delete(role, cancellationToken);
 
-        int saveResponse = await _roleRepository.Save();
+        int saveResponse = await _roleRepository.Save(cancellationToken);
 
         if (saveResponse is 0) return false;
 

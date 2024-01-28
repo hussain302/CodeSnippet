@@ -2,7 +2,7 @@
 using CodeSnippet.Application.Dtos;
 using CodeSnippet.Application.Modules.Roles.Querys;
 using CodeSnippet.Domain.Abstractions.Repositories;
-using System.Globalization;
+using CodeSnippet.Application.Mappers;
 
 namespace CodeSnippet.Application.Modules.Roles.Handlers;
 public class RoleQueryHandlers(IRoleRepository roleRepository) :
@@ -13,7 +13,7 @@ public class RoleQueryHandlers(IRoleRepository roleRepository) :
 
     public async Task<RoleDto> Handle(GetRoleByIdQuery request, CancellationToken cancellationToken)
     {
-        var role = await _roleRepository.Find(id: request.Id);
+        var role = await _roleRepository.Find(id: request.Id, cancellationToken);
 
         if (role is not null) return new RoleDto(role.Id, role.Name, role.Description);
         
@@ -22,11 +22,10 @@ public class RoleQueryHandlers(IRoleRepository roleRepository) :
 
     public async Task<List<RoleDto>> Handle(GetAllRolesQuery request, CancellationToken cancellationToken)
     {
-        CultureInfo originalCulture = CultureInfo.CurrentCulture;
 
-        var roles = await _roleRepository.Get();
+        var roles = await _roleRepository.Get(cancellationToken);
 
-        if (roles is not null) return roles.ToList().ConvertAll(role  => new RoleDto (Id: role.Id, Name: role.Name, Description: role.Description ));
+        if (roles is not null) return roles.Select(role => role.AsDto()).ToList();
         
         return []; 
     }

@@ -71,7 +71,7 @@ namespace CodeSnippet.Infrastructure.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("tblUsers");
+                    b.ToTable("tblUsers", (string)null);
                 });
 
             modelBuilder.Entity("CodeSnippet.Domain.Entities.Role", b =>
@@ -92,7 +92,7 @@ namespace CodeSnippet.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("tblRoles");
+                    b.ToTable("tblRoles", (string)null);
                 });
 
             modelBuilder.Entity("CodeSnippet.Domain.Aggregates.User", b =>
@@ -103,7 +103,7 @@ namespace CodeSnippet.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("CodeSnippet.Domain.ValueObjects.Address", "Address", b1 =>
+                    b.OwnsOne("CodeSnippet.Domain.Aggregates.User.Address#CodeSnippet.Domain.ValueObjects.Address", "Address", b1 =>
                         {
                             b1.Property<Guid>("UserId")
                                 .HasColumnType("uniqueidentifier");
@@ -135,7 +135,7 @@ namespace CodeSnippet.Infrastructure.Migrations
 
                             b1.HasKey("UserId");
 
-                            b1.ToTable("tblUsers");
+                            b1.ToTable("tblUsers", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("UserId");
