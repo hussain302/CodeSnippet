@@ -47,7 +47,7 @@ public sealed class RolesController(IMediator _mediator) : ApiController(mediato
             statusCode: StatusCodes.Status201Created,
             value: new ApiResult(
                 success: true,
-                message: "Roles data has been created successfully",
+                message: "Role has been created successfully",
                 result: new { createdId = roleId }
             ));
     }
@@ -65,7 +65,7 @@ public sealed class RolesController(IMediator _mediator) : ApiController(mediato
                 statusCode: StatusCodes.Status200OK,
                 value: new ApiResult(
                     success: true,
-                    message: "Roles data has been fetched successfully",
+                    message: "Role data has been fetched successfully",
                     result: role
                 ));
         }
@@ -74,7 +74,7 @@ public sealed class RolesController(IMediator _mediator) : ApiController(mediato
             statusCode: StatusCodes.Status404NotFound,
             value: new ApiResult(
                 success: true,
-                message: $"Roles does not exists against id '{id}'",
+                message: $"Role does not exists against id '{id}'",
                 result: new { }
             ));
     }
@@ -103,7 +103,7 @@ public sealed class RolesController(IMediator _mediator) : ApiController(mediato
                 statusCode: StatusCodes.Status200OK,
                 value: new ApiResult(
                     success: true,
-                    message: "Roles data has been updated successfully",
+                    message: "Role data has been updated successfully",
                     result: new { updatedRole = command }
                 ));
         }
@@ -140,7 +140,7 @@ public sealed class RolesController(IMediator _mediator) : ApiController(mediato
                 statusCode: StatusCodes.Status200OK,
                 value: new ApiResult(
                     success: true,
-                    message: "Roles has been deleted successfully",
+                    message: "Role has been deleted successfully",
                     result: new { deletedId = command.Id }
                 ));
         }

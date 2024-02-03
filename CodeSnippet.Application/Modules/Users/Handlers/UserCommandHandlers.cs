@@ -24,13 +24,17 @@ public class UserCommandHandlers(IUserRepository userRepository) :
             RoleId = request.Role.Id,
             CreatedAt = DateTime.Now,
             Address = request.Address,
-            Role = request.Role,
-            PasswordHash = request.Password
+            //Role = request.Role,
+            PasswordHash = request.Password,
+            UpdatedAt = DateTime.Now
         };
 
-        var existingUser = await _userRepository.Get(x => x.Username == request.Username, cancellationToken:cancellationToken);
+        var existingUser = await _userRepository.Get(
+            x => x.Username == request.Username || x.Email == request.Email,
+            cancellationToken: cancellationToken
+        );
 
-        if (existingUser.Any()) throw new Exception("Username already exists.");
+        if (existingUser.Any()) throw new Exception("Username or Email already exists. Please choose unique one");
 
         await _userRepository.Add(user, cancellationToken);
 
@@ -47,13 +51,27 @@ public class UserCommandHandlers(IUserRepository userRepository) :
 
         if (user == null) return false;
 
+        var existingUserWithSameEmail = await _userRepository.Get(
+            u => (u.Email == request.Email && u.Id != request.Id),
+                cancellationToken: cancellationToken
+            );
+
+        var existingUserWithSameUserName = await _userRepository.Get(
+            u => (u.Username == request.Username && u.Id != request.Id),
+                cancellationToken: cancellationToken
+            );
+        
+        if (existingUserWithSameUserName.Any()) throw new Exception("A user with the requested username already exists");        
+        
+        if (existingUserWithSameEmail.Any()) throw new Exception("A user with the requested email already exists");        
+
         user.Username = request.Username;
         user.FirstName = request.FirstName;
         user.MiddleName = request.MiddleName;
         user.LastName = request.LastName;
+        user.PasswordHash = request.Password;
         user.Email = request.Email;
         user.Address = request.Address;
-        user.Role = request.Role;
         user.RoleId = request.Role.Id;
         user.UpdatedAt = DateTime.Now;
 

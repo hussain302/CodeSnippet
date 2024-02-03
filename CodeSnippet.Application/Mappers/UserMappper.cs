@@ -1,5 +1,6 @@
 ﻿using CodeSnippet.Application.Dtos;
 using CodeSnippet.Domain.Aggregates;
+using CodeSnippet.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ public static class UserMappper
             MiddleName: source.MiddleName,
             Address: source.Address,
             Password: source.PasswordHash,
-            Role: source.Role.AsDto(),
+            Role: source.Role?.AsDto() ?? RoleEmptyDto(),
             Username: source.Username,
             CreatedAt: source.CreatedAt,
             RoleId: source.RoleId,
@@ -43,5 +44,15 @@ public static class UserMappper
             RoleId = source.RoleId,
             UpdatedAt = source.UpdatedAt
         };
+
+    public static RoleDto RoleEmptyDto()
+    {
+        return new RoleDto
+        (
+            Id: Guid.Empty,
+            Name: string.Empty,
+            Description: string.Empty
+        );
+    }
 
 }

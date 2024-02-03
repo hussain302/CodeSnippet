@@ -49,18 +49,23 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.OwnsOne(u => u.Address, address =>
         {
             address.Property(a => a.StreetAddress)
+                    .HasColumnName("StreetAddress")
                    .HasMaxLength(70);
 
             address.Property(a => a.City)
+                   .HasColumnName("City")
                    .HasMaxLength(25);
 
             address.Property(a => a.State)
+                   .HasColumnName("State")
                    .HasMaxLength(25);
             
             address.Property(a => a.Country)
+                   .HasColumnName("Country")
                    .HasMaxLength(25);
 
             address.Property(a => a.ZipCode)
+                   .HasColumnName("ZipCode")
                    .HasMaxLength(10);
         });
     }

@@ -3,6 +3,7 @@ using CodeSnippet.Application.Dtos;
 using CodeSnippet.Domain.Abstractions.Repositories;
 using CodeSnippet.Application.Modules.Users.Querys;
 using CodeSnippet.Application.Mappers;
+using CodeSnippet.Domain.Aggregates;
 
 namespace CodeSnippet.Application.Modules.Roles.Handlers;
 public class UserQueryHandlers(IUserRepository userRepository) :
@@ -13,55 +14,16 @@ public class UserQueryHandlers(IUserRepository userRepository) :
 
     public async Task<UserDto> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.Find(id: request.Id, cancellationToken);
+        var users = await _userRepository.Get(includes:x=>x.Role, cancellationToken: cancellationToken);
 
-        if (user is not null) 
-            return new UserDto(
-                user.Id, 
-                user.Username, 
-                user.FirstName,
-                user.MiddleName,
-                user.LastName,
-                user.PasswordHash,
-                user.Email,
-                user.Role.AsDto(),
-                user.Address ?? new Domain.ValueObjects.Address(
-                                                    string.Empty,
-                                                    string.Empty,
-                                                    string.Empty,
-                                                    string.Empty,
-                                                    string.Empty),
-                user.CreatedAt,
-                user.RoleId,
-                user.UpdatedAt);
-
-        return new UserDto(
-            Id: Guid.Empty, 
-            Username: string.Empty,
-            FirstName: string.Empty, 
-            MiddleName: string.Empty,
-            LastName: string.Empty,
-            Password: string.Empty,
-            Email: string.Empty,
-            Role:new RoleDto(
-                Guid.Empty,
-                string.Empty,
-                string.Empty
-                ),
-            Address: new Domain.ValueObjects.Address(
-                string.Empty,
-                string.Empty, 
-                string.Empty, 
-                string.Empty,
-                string.Empty),
-            CreatedAt: DateTime.MinValue,
-            RoleId: Guid.Empty,
-            UpdatedAt: DateTime.MinValue);
+        User user = users.SingleOrDefault(x=>x.Id == request.Id) ?? new User { };
+        
+        return user.AsDto();
     }
 
     public async Task<List<UserDto>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
     {
-        var users = await _userRepository.Get(cancellationToken);
+        var users = await _userRepository.Get(includes:x=>x.Role, cancellationToken: cancellationToken);
 
         if (users is not null) return users.Select(user=> user.AsDto()).ToList();
 

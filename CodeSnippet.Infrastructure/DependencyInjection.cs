@@ -1,7 +1,7 @@
-﻿using CodeSnippet.Infrastructure.Data.Contexts;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using CodeSnippet.Infrastructure.Data.Contexts;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CodeSnippet.Infrastructure;
@@ -21,5 +21,4 @@ public static class DependencyInjection
                 x.AssumeDefaultVersionWhenUnspecified = true;
                 x.ReportApiVersions = true;
             });
-
 }

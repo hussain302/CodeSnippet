@@ -1,6 +1,6 @@
-@CodeSnippet.API_HostAddress = http://localhost:5206
+@CodeSnippet.API_HostAddress = https://localhost:7110/code-snippet
 
-GET {{CodeSnippet.API_HostAddress}}/weatherforecast/
+GET {{CodeSnippet.API_HostAddress}}/api/v1/role/list
 Accept: application/json
 
 ###
