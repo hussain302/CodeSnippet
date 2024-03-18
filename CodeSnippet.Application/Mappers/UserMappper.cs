@@ -12,7 +12,7 @@ public static class UserMappper
 {
 
     public static UserDto AsDto(this User source)
-        => new  
+        => new
         (
             Id: source.Id,
             FirstName: source.FirstName,
@@ -25,11 +25,11 @@ public static class UserMappper
             Username: source.Username,
             CreatedAt: source.CreatedAt,
             RoleId: source.RoleId,
-            UpdatedAt:source.UpdatedAt
-        );  
-    
+            UpdatedAt: source.UpdatedAt
+        );
+
     public static User AsDto(this UserDto source)
-        => new () 
+        => new()
         {
             Id = source.Id,
             FirstName = source.FirstName,
@@ -47,7 +47,7 @@ public static class UserMappper
 
     public static RoleDto RoleEmptyDto()
     {
-        return new RoleDto
+        return new 
         (
             Id: Guid.Empty,
             Name: string.Empty,
@@ -55,4 +55,30 @@ public static class UserMappper
         );
     }
 
+    public static RegisterResponseDto AsRegisterResponseDto(this User source)
+    => new 
+    (
+        source.Id,
+        source.Username,
+        source.FirstName,
+        source.MiddleName,
+        source.LastName,
+        source.Email,
+        source.Role.AsDto(),
+        source.Address
+    );
+
+    public static LoginResponseDto AsLoginResponseDto(this User source, string accessToken)
+    => new 
+    (
+        source.Id,
+        source.Username,
+        source.FirstName,
+        source.MiddleName,
+        source.LastName,
+        source.Email,
+        source.Role.AsDto(),
+        source.Address,
+        accessToken
+    );
 }

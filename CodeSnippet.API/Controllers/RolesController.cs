@@ -6,9 +6,11 @@ using CodeSnippet.Domain.Primitives;
 using CodeSnippet.API.Infrastructure;
 using CodeSnippet.Application.Modules.Roles.Querys;
 using CodeSnippet.Application.Modules.Roles.Commands;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CodeSnippet.API.Controllers;
 
+[Authorize]
 [ApiController]
 [ApiVersion("1.0")]
 public sealed class RolesController(IMediator _mediator) : ApiController(mediator: _mediator ?? throw new ArgumentNullException("Mediator cant be null"))

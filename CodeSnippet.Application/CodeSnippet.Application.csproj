@@ -9,14 +9,14 @@
   <ItemGroup>
     <Folder Include="Validators\" />
     <Folder Include="Modules\Blogs\Handlers\" />
-    <Folder Include="Modules\Blogs\Querys\" />
+    <Folder Include="Modules\Blogs\Queries\" />
     <Folder Include="Modules\Blogs\Commands\" />
     <Folder Include="Modules\Courses\Commands\" />
     <Folder Include="Modules\Courses\Handlers\" />
-    <Folder Include="Modules\Courses\Querys\" />
+    <Folder Include="Modules\Courses\Queries\" />
     <Folder Include="Modules\Payments\Commands\" />
     <Folder Include="Modules\Payments\Handlers\" />
-    <Folder Include="Modules\Payments\Querys\" />
+    <Folder Include="Modules\Payments\Queries\" />
     <Folder Include="Contracts\" />
   </ItemGroup>
 
